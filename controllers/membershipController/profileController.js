@@ -4,7 +4,7 @@ class ProfileController {
     static async getUserProfile (req, res, next) {
         try {
             const userEmail = req.loggedInUser.email
-            const profile = await ProfileFactory.getProfile(userEmail)
+            const profile = await ProfileFactory.findProfile(userEmail)
             res.status(200).json({
                 "status": 0,
                 "message": "Sukses",
@@ -29,7 +29,7 @@ class ProfileController {
             input.id = req.loggedInUser.id
             await ProfileFactory.updateProfile(input)
 
-            const profile = await ProfileFactory.getProfile(req.loggedInUser.email)
+            const profile = await ProfileFactory.findProfile(req.loggedInUser.email)
             res.status(200).json({
                 "status": 0,
                 "message": "Sukses",

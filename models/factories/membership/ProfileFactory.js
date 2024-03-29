@@ -2,7 +2,7 @@ const pool = require('../../../config/connection.js')
 const User = require('../../base/User.js')
 
 class UserFactory {
-    static async getProfile (email) {
+    static async findProfile (email) {
         let errors = UserFactory.validateEmail(email)
 
         if (errors.length > 0) {
