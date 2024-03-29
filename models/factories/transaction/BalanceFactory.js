@@ -1,9 +1,10 @@
 const pool = require('../../../config/connection.js')
-const User = require('../../base/User.js')
-const Balance = require('../../base/Balance.js')
 
 class BalanceFactory {
     static async initBalance(input) {
+        input.created_on = new Date()
+        input.updated_on = new Date()
+        
         let query = `INSERT INTO "Balances" ("user_id","balance_amount","created_on","updated_on") VALUES ($1, $2, $3, $4);`
         let values = [input.user_id, input.balance_amount, input.created_on, input.updated_on]
 

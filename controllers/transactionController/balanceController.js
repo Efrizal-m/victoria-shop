@@ -7,7 +7,7 @@ class BalanceController {
             let balance = await BalanceFactory.getBalance(userId)
 
             if (!balance) {
-                const initValue = { user_id: userId, balance_amount: 0, created_on: new Date(), updated_on: new Date()}
+                const initValue = { user_id: userId, balance_amount: 0}
                 await BalanceFactory.initBalance(initValue)
                 balance = await BalanceFactory.getBalance(userId)
             }
@@ -24,7 +24,7 @@ class BalanceController {
 
     static async topup (req, res, next) {
         let top_up_amount = req.body.top_up_amount
-        if (typeof(top_up_amount) != "number" || top_up_amount < 0) {
+        if (!top_up_amount || typeof(top_up_amount) != "number" || top_up_amount < 0) {
             res.status(400).json({
                 "status": 102,
                 "message": "Paramter amount hanya boleh angka dan tidak boleh lebih kecil dari 0",

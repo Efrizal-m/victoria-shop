@@ -24,6 +24,19 @@ class InformationFactory {
             return null
         }
     }
+
+    static async findAndValidateService(service_code) {
+        let query = `SELECT * FROM "Services" WHERE "service_code" = $1;`
+        let values = [service_code]
+
+        const data = await pool.query(query, values);
+        if (data.rows.length > 0) {
+            const user = new Service(data.rows[0]._id, data.rows[0].service_code, data.rows[0].service_name, data.rows[0].service_icon, data.rows[0].service_tariff)
+            return user
+        } else {
+            return null
+        }
+    }
 }
 
 module.exports = InformationFactory

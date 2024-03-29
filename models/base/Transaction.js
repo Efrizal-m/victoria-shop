@@ -1,5 +1,5 @@
 class Transaction {
-    constructor(id, user_id, balance_amount, created_on, updated_on ) {
+    constructor(id, user_id, invoice_number, service_code, service_name, transaction_type, total_amount, created_on, updated_on ) {
         this._id = Number(id)
         this.user_id = user_id,
         this.invoice_number = invoice_number,

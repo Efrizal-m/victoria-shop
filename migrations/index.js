@@ -49,6 +49,7 @@ const transactionsQuery =
 CREATE TABLE "Transactions" (
     "_id" SERIAL PRIMARY KEY,
     "user_id" INTEGER NOT NULL,
+    "invoice_number" VARCHAR(30) NOT NULL,
     "service_code" VARCHAR(30) NOT NULL,
     "service_name" VARCHAR(30) NOT NULL,
     "transaction_type" VARCHAR(30) NOT NULL,

@@ -4,6 +4,7 @@ const UserController = require('../controllers/membershipController/userControll
 const ProfileController = require('../controllers/membershipController/profileController')
 const InformationController = require('../controllers/informationController/informationController')
 const BalanceController = require('../controllers/transactionController/balanceController')
+const TransactionController = require('../controllers/transactionController/transactionController')
 
 // Route for Membership Module
 router.post('/registration', UserController.registerUser)
@@ -20,7 +21,7 @@ router.get('/services', InformationController.getServices)
 // Route for Transaction Module
 router.get('/balance', BalanceController.getUserBalance)
 router.post('/topup', BalanceController.topup)
-// router.post('/transaction', Controller.upsertTransaction)
-// router.get('/transaction/history', Controller.getTransactions)
+router.post('/transaction', TransactionController.addTransaction)
+router.get('/transaction/history', TransactionController.getTransactionHistory)
 
 module.exports = router
