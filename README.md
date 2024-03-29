@@ -24,4 +24,4 @@ npm run db:seed:all
 npm run dev
 ```
 
-#
+# Database Design: https://imgur.com/05Qf1g4
