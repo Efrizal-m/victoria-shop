@@ -1,5 +1,4 @@
 const pool = require('../../../config/connection.js')
-
 const User = require('../../base/User.js')
 
 class UserFactory {
@@ -17,7 +16,7 @@ class UserFactory {
         return true
     }
 
-    static async login (input, cb) {
+    static async login (input) {
         let errors = UserFactory.validateLogin(input)
 
         if (errors.length > 0) {
@@ -32,6 +31,22 @@ class UserFactory {
             return user
         } else {
             return null
+        }
+    }
+
+    static async checkById (id) {
+        let errors = UserFactory.validateGetter(id)
+        if (errors.length > 0) {
+            throw errors
+        }
+        let query = `SELECT * FROM "Users" WHERE "_id" = $1;`
+        let values = [id]
+
+        const data = await pool.query(query, values);
+        if (data.rows.length > 0) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -65,6 +80,14 @@ class UserFactory {
         }
         if (input.password === '' || input.password.trim() === '' || input.password === undefined) {
             errors.push('Parameter password harus di isi')
+        }    
+        return errors;
+    }
+
+    static validateGetter (id) {
+        let errors = []
+        if (typeof(id) !== "number") {
+            errors.push('id not valid at user getter')
         }    
         return errors;
     }

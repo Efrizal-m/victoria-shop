@@ -1,8 +1,7 @@
 const UserFactory = require('../../models/factories/membership/UserFactory.js')
-const pool = require('../../config/connection.js');
 const { generateToken } = require('../../helpers/jwt.js')
 
-class Controller {
+class UserController {
     static async registerUser (req, res, next) {
         try {
             const input = {
@@ -19,8 +18,6 @@ class Controller {
             })
         } catch (error) {
             next(error)
-        } finally {
-            pool.end()
         }
     }
 
@@ -51,4 +48,4 @@ class Controller {
     }
 }
 
-module.exports = Controller
+module.exports = UserController
