@@ -1,5 +1,7 @@
+const moment = require('moment')
+
 function generateInvoiceCode () {
-    return `INV` + `001`
+    return `INV` + moment(new Date).format("DDMMYYY") + `-${new Date().getUTCMilliseconds()}`
 }
 
 module.exports = {

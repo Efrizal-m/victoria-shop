@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken')
+const env = require('../config/env.js')
 
 function generateToken(payload) {
-    return jwt.sign(payload, process.env.SECRET, {
-        expiresIn: "12h",
+    return jwt.sign(payload, env.jwt_secret, {
+        expiresIn: env.jwt_expires,
       })
 }
 
 function verifyToken (token) {
-    return jwt.verify(token, process.env.SECRET)
+    return jwt.verify(token, env.jwt_secret)
 }
 
 module.exports = {

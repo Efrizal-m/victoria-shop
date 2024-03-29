@@ -1,11 +1,12 @@
 const { Pool } = require('pg')
+const env = require('../config/env.js')
 
 const pool = new Pool({
-    user:'postgres',
-    host:'localhost',
-    database:'vs4',
-    password:'postgres',
-    port:5432,
+    user: env.user,
+    host:env.host,
+    database:env.database,
+    password:env.password,
+    port:env.dbport,
 })
 
 module.exports = pool
