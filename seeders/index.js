@@ -12,7 +12,7 @@ for (let i = 0; i < banners.length; i++) {
 }
 let arrServices = []
 for (let i = 0; i < services.length; i++) {
-    arrServices.push(`('${services[i].service_code}','${services[i].service_name}','${services[i].service_icon}','${services[i].service_tariff}')`)
+    arrServices.push(`('${services[i].service_code}','${services[i].service_name}','${services[i].service_icon}','${services[i].service_tariff}','${services[i].description}')`)
 }
 
 const InsertBanners = 
@@ -22,7 +22,7 @@ VALUES ${arrBanners.join(',')};
 `
 const InsertServices = 
 `
-INSERT INTO "Services" ("service_code","service_name","service_icon","service_tariff")
+INSERT INTO "Services" ("service_code","service_name","service_icon","service_tariff","description")
 VALUES ${arrServices.join(',')};
 `
 

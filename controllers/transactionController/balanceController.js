@@ -1,4 +1,6 @@
 const BalanceFactory = require('../../models/factories/transaction/BalanceFactory')
+const TransactionFactory = require('../../models/factories/transaction/TransactionFactory.js')
+const { generateInvoiceCode } = require('../../helpers/invoice.js')
 
 class BalanceController {
     static async getUserBalance (req, res, next) {
@@ -41,6 +43,18 @@ class BalanceController {
         input.balance_amount += balance + top_up_amount
         const updateSuccess = await BalanceFactory.setBalance(input)
         if (updateSuccess) {
+            const input_tx = {
+                user_id: input.user_id,
+                invoice_number: generateInvoiceCode(),
+                service_code: "VICTORIA",
+                service_name: "VICTORIA-SHOP",
+                transaction_type: "TOPUP",
+                description: "Top Up Balance",
+                total_amount: top_up_amount
+            }
+
+            await TransactionFactory.new(input_tx)
+
             res.status(200).json({
                 "status": 0,
                 "message": "Top Up Balance berhasil",

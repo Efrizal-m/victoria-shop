@@ -1,7 +1,7 @@
 const BalanceFactory = require('../../models/factories/transaction/BalanceFactory')
 const InformationFactory = require('../../models/factories/information/InformationFactory.js')
-const { generateInvoiceCode } = require('../../helpers/invoice.js')
 const TransactionFactory = require('../../models/factories/transaction/TransactionFactory.js')
+const { generateInvoiceCode } = require('../../helpers/invoice.js')
 
 class TransactionController {
     static async addTransaction (req, res, next) {
@@ -25,6 +25,7 @@ class TransactionController {
                 service_code: existingServiceCode.service_code,
                 service_name: existingServiceCode.service_name,
                 transaction_type: "PAYMENT",
+                description: existingServiceCode.description,
                 total_amount: existingServiceCode.service_tariff
             }
 
@@ -58,6 +59,26 @@ class TransactionController {
     }
 
     static async getTransactionHistory (req, res, next) {
+        try {
+            const input = {
+                user_id: req.loggedInUser.id,
+                offset: req.query.offset || 0,
+                limit: req.query.limit || 3
+            }
+            const transactions = await TransactionFactory.history(input)
+            const filtered = transactions.map(({invoice_number, transaction_type, description, total_amount, created_on}) => { return {invoice_number, transaction_type, description, total_amount, created_on}})
+            res.status(200).json({
+                "status": 0,
+                "message": "Get History Berhasil",
+                "data": {
+                    offset: input.offset,
+                    limit: input.limit,
+                    records: filtered
+                }
+            })
+        } catch (error) {
+            next(error)
+        }
     }
 }
 

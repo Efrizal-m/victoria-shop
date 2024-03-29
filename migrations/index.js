@@ -29,7 +29,8 @@ CREATE TABLE "Services" (
     "service_code" VARCHAR(30) NOT NULL,
     "service_name" VARCHAR(30) NOT NULL,
     "service_icon" VARCHAR(200) NOT NULL,
-    "service_tariff" INTEGER NOT NULL
+    "service_tariff" INTEGER NOT NULL,
+    "description" VARCHAR(60) NOT NULL
 );`
 
 
@@ -53,6 +54,7 @@ CREATE TABLE "Transactions" (
     "service_code" VARCHAR(30) NOT NULL,
     "service_name" VARCHAR(30) NOT NULL,
     "transaction_type" VARCHAR(30) NOT NULL,
+    "description" VARCHAR(60) NOT NULL,
     "total_amount" INTEGER NOT NULL,
     "created_on" DATE NOT NULL,
     "updated_on" DATE NOT NULL

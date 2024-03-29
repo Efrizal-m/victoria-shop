@@ -70,6 +70,10 @@ class UserFactory {
         if (!emailRegex.test(input.email)) {
             errors.push('Paramter email tidak sesuai format')            
         }
+        if (input.password.length < 8) {
+            errors.push('Parameter password minimal 8 karakter')
+        }
+
         return errors;
     }
 
