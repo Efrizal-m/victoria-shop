@@ -27,19 +27,24 @@ class ProfileController {
                 last_name : req.body.last_name,
             }
             input.id = req.loggedInUser.id
-            await ProfileFactory.updateProfile(input)
+            const updateSuccess = await ProfileFactory.updateProfile(input)
 
-            const profile = await ProfileFactory.findProfile(req.loggedInUser.email)
-            res.status(200).json({
-                "status": 0,
-                "message": "Sukses",
-                "data": {
-                    email: profile.email,
-                    first_name: profile.first_name,
-                    last_name: profile.last_name,
-                    profile_image: profile.profile_image
-                }
-            })
+            if (updateSuccess) {
+                const profile = await ProfileFactory.findProfile(req.loggedInUser.email)
+                res.status(200).json({
+                    "status": 0,
+                    "message": "Sukses",
+                    "data": {
+                        email: profile.email,
+                        first_name: profile.first_name,
+                        last_name: profile.last_name,
+                        profile_image: profile.profile_image
+                    }
+                })
+            } else {
+                throw { status: 500, message: 'Internal Error' }                
+            }
+
         } catch (error) {
             next(error)
         }
