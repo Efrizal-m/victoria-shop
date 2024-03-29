@@ -1,14 +1,14 @@
-const pool = require('./config/connection')
+const pool = require('../config/connection.js')
 
 const usersQuery =
 `
 CREATE TABLE "Users" (
     "_id" SERIAL PRIMARY KEY,
-    "email" VARCHAR(50) NOT NULL,
+    "email" VARCHAR(50) UNIQUE NOT NULL,
     "password" VARCHAR(50) NOT NULL,
     "first_name" VARCHAR(30) NOT NULL,
     "last_name" VARCHAR(30) NOT NULL,
-    "profile_image" VARCHAR(100)
+    "profile_image" VARCHAR(200)
 );`
 
 
@@ -17,8 +17,8 @@ const bannersQuery =
 CREATE TABLE "Banners" (
     "_id" SERIAL PRIMARY KEY,
     "banner_name" VARCHAR(30) NOT NULL,
-    "banner_image" VARCHAR(60) NOT NULL,
-    "description" VARCHAR(30) NOT NULL
+    "banner_image" VARCHAR(200) NOT NULL,
+    "description" VARCHAR(60) NOT NULL
 );`
 
 
@@ -28,7 +28,7 @@ CREATE TABLE "Services" (
     "_id" SERIAL PRIMARY KEY,
     "service_code" VARCHAR(30) NOT NULL,
     "service_name" VARCHAR(30) NOT NULL,
-    "service_icon" VARCHAR(60) NOT NULL,
+    "service_icon" VARCHAR(200) NOT NULL,
     "service_tariff" INTEGER NOT NULL
 );`
 
@@ -72,4 +72,4 @@ pool.query(balancesQuery)
     .catch(err => { console.log(err) })    
 pool.query(transactionsQuery)
     .then(_ => { console.log('create transactions table succes')})
-    .catch(err => { console.log(err) })    
+    .catch(err => { console.log(err) })

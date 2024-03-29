@@ -1,9 +1,9 @@
-const pool = require('./config/connection');
-const fs = require('fs').promises
+const pool = require('../config/connection.js');
+const fs = require('fs')
 
 // read from local json
-const banners = JSON.parse(fs.readFileSync('./data/banners.json', 'utf8'))
-const services = JSON.parse(fs.readFileSync('./data/services.json', 'utf8'))
+const banners = JSON.parse(fs.readFileSync(`${__dirname}/data/banners.json`, 'utf8'))
+const services = JSON.parse(fs.readFileSync(`${__dirname}/data/services.json`, 'utf8'))
 
 // create array to be inputted as insertMany in next query string statement
 let arrBanners = []
@@ -12,7 +12,7 @@ for (let i = 0; i < banners.length; i++) {
 }
 let arrServices = []
 for (let i = 0; i < services.length; i++) {
-    arrServices.push(`('${services[i].service_code}','${services[i].service_name}','${services[i].service_icon}','${services[i].service_tariff}',)`)
+    arrServices.push(`('${services[i].service_code}','${services[i].service_name}','${services[i].service_icon}','${services[i].service_tariff}')`)
 }
 
 const InsertBanners = 

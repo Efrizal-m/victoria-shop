@@ -1,4 +1,4 @@
-const Controller = require('../controllers/controller')
+const Controller = require('../controllers/memberShipController/userController')
 const router = require('express').Router()
 
 // Route for Membership Module
@@ -18,4 +18,4 @@ router.post('/login', Controller.loginUser)
 // router.post('/transaction', Controller.upsertTransaction)
 // router.get('/transaction/history', Controller.getTransactions)
 
-module.exports = mainRouter
+module.exports = router
