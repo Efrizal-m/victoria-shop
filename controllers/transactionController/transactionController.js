@@ -48,11 +48,20 @@ class TransactionController {
             input.invoice_number = generateInvoiceCode()
             const transaction = await TransactionFactory.new(input)
 
-            res.status(200).json({
-                "status": 0,
-                "message": "Transaksi berhasil",
-                "data": transaction
-            })
+            const input_balance = {
+                user_id: req.loggedInUser.id,
+                balance_amount: balance - existingServiceCode.service_tariff
+            }
+            const updateSuccess = await BalanceFactory.setBalance(input_balance)
+            if (updateSuccess && transaction) {
+                res.status(200).json({
+                    "status": 0,
+                    "message": "Transaksi berhasil",
+                    "data": transaction
+                })    
+            } else {
+                throw { status: 500, message: 'Internal Error' }
+            }    
         } catch (error) {
             next(error)
         }
