@@ -18,10 +18,10 @@ module.exports = env
 
 then run this script in root directory:
 ```
+npm i
 npm run db:migrate
 npm run db:seed:all
-npm i
 npm run dev
 ```
 
-#
+# Database Design: https://imgur.com/05Qf1g4
