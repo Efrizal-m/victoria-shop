@@ -41,6 +41,26 @@ class UserFactory {
         }
     }
 
+    static async updateProfileImage (input) {
+        let errors = UserFactory.validate_up(input)
+
+        if (errors.length > 0) {
+            throw errors
+        }
+        let query = `UPDATE "Users"
+        SET
+            "profile_image" = $1
+        WHERE 
+            "_id" = $2;`
+        let values = [input.profile_image, input.id]
+        const data = await pool.query(query, values);
+        if (data.rowCount > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 
     static validateEmail (email) {
         let errors = []
@@ -58,6 +78,17 @@ class UserFactory {
         }
         if (input.last_name === '' || input.last_name.trim() === '' || input.last_name === undefined) {
             errors.push('Parameter last_name harus di isi')
+        }
+        if (typeof(input.id) !== "number") {
+            errors.push('id not valid at user getter')
+        }
+        return errors;
+    }
+
+    static validate_up (input) {
+        let errors = []
+        if (input.profile_image === '' || input.profile_image.trim() === '' || input.profile_image === undefined) {
+            errors.push('Parameter profile_image harus di isi')
         }
         if (typeof(input.id) !== "number") {
             errors.push('id not valid at user getter')
