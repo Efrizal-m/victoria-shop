@@ -3,7 +3,7 @@ const env = require('../config/env.js')
 
 function generateToken(payload) {
     return jwt.sign(payload, env.jwt_secret, {
-        expiresIn: env.jwt_expires,
+        expiresIn: env.expires,
       })
 }
 

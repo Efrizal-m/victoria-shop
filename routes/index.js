@@ -5,6 +5,10 @@ const ProfileController = require('../controllers/membershipController/profileCo
 const InformationController = require('../controllers/informationController/informationController')
 const BalanceController = require('../controllers/transactionController/balanceController')
 const TransactionController = require('../controllers/transactionController/transactionController')
+// Multer configuration
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // Route for Membership Module
 router.post('/registration', UserController.registerUser)
@@ -12,7 +16,7 @@ router.post('/login', UserController.loginUser)
 router.use(Authentication.userAuth)
 router.get('/profile', ProfileController.getUserProfile)
 router.put('/profile/update', ProfileController.updateProfile)
-router.put('/profile/image', ProfileController.updateProfileImage)
+router.put('/profile/image', upload.single('image'), ProfileController.updateProfileImage)
 
 // Route for Information Module
 router.get('/banner', InformationController.getBanners)
